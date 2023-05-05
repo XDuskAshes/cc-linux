@@ -30,24 +30,24 @@ local drive = false
 local modem = false
 local monitor = false
 
-if fs.exists("bin/drive.lua") == true then
+if fs.exists(".kernel/bin/drive.lua") == true then
     drive = true
-    require("bin/drive")
-elseif fs.exists("bin/drive.lua") == false then
+    require(".kernel/bin/drive")
+elseif fs.exists(".kernel/bin/drive.lua") == false then
     drive = false
 end
 
 if fs.exists("bin/modem.lua") == true then
     modem = true
-    require("bin/modem")
-elseif fs.exists("bin/modem.lua") == false then
+    require(".kernel/bin/modem")
+elseif fs.exists(".kernel/bin/modem.lua") == false then
     modem = false
 end
 
-if fs.exists("bin/monitor.lua") == true then
+if fs.exists(".kernel/bin/monitor.lua") == true then
     monitor = true
-    require("bin/monitor")
-elseif fs.exists("bin/monitor.lua") == false then
+    require(".kernel/bin/monitor")
+elseif fs.exists(".kernel/bin/monitor.lua") == false then
     monitor = false
 end
 --[[+=====================================================================================+]]--
