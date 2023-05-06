@@ -1,3 +1,5 @@
+--1.0.0
+
 function tmp(a)
     if a == "make" then
         fs.makeDir("tmp/")
