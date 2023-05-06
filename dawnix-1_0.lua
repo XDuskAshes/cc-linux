@@ -26,8 +26,8 @@ Total lines of code: (when it's done, goes here.)
     All binaries must be placed in the 'bin/' folder.
 ]]
 
-if fs.exists("kernel/bin/opt/*") == true then
-    require("kernel/bin/opt/*")
+if fs.exists("kernel/bin/*") == true then
+    require("kernel/bin/*")
 end
 
 -----
@@ -38,16 +38,30 @@ end
     These will be forcefully dl'd if unpresent.
 ]]
 
-if fs.exists("kernel/bin/req/dir.lua") == true then
-    require("kernel/bin/req/dir")
-elseif fs.exists("kernel/bin/req/dir.lua") == false then
-    shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawnix/DEV/.kernel/bin/req/dir.lua .kernel/bin/req/dir.lua")
-    require("kernel/bin/req/dir")
-end
-
 --[[+=====================================================================================+]]--
 
 --MEMORY
+
+--Temp folder and manipulation
+
+function tmp(a)
+    if a == "make" then
+        fs.makeDir("tmp/")
+    end
+
+    if a == "clear" then
+        if fs.exists("tmp/") == true then
+            shell.run("rm tmp/*")
+        end
+    end
+
+    if a == "delete" then
+        if fs.exists("tmp/") == true then
+            fs.delete("tmp/")
+        end
+    end
+end
+
 
 --TEMPTABLES
 --If anything needs, three tables can supply temporary storage in kernel
@@ -55,6 +69,20 @@ end
 local tTable1 = {}
 local tTable2 = {}
 local tTable3 = {}
+
+local function flushTTable(a)
+    if a == 1 then
+        tTable1 = {}
+    end
+
+    if a == 2 then
+        tTable2 = {}
+    end
+
+    if a == 3 then
+        tTable3 = {}
+    end
+end
 
 --[[+=====================================================================================+]]--
 
