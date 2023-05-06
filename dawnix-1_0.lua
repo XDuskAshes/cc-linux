@@ -20,17 +20,17 @@ Total lines of code: (when it's done, goes here.)
 
 --[[+=====================================================================================+]]--
 
---[[
-    BINARIES
-    All required binaries are in the repo and **should** be auto-installed. If not, there's a function for that.
-    All binaries must be placed in the 'bin/' folder.
-]]
+--BINARIES
+
+--OPTIONAL (in kernel/obin/)
 
 if fs.exists("kernel/bin/*") == true then
     require("kernel/bin/*")
 end
 
 -----
+
+--REQUIRED (in kernel/rbin/)
 
 --[[
     Now these will be double checked.
