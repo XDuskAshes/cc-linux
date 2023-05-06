@@ -37,7 +37,7 @@ elseif fs.exists(".kernel/bin/drive.lua") == false then
     drive = false
 end
 
-if fs.exists("bin/modem.lua") == true then
+if fs.exists(".kernel/bin/modem.lua") == true then
     modem = true
     require(".kernel/bin/modem")
 elseif fs.exists(".kernel/bin/modem.lua") == false then
