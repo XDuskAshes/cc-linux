@@ -26,30 +26,25 @@ Total lines of code: (when it's done, goes here.)
     All binaries must be placed in the 'bin/' folder.
 ]]
 
-local drive = false
-local modem = false
-local monitor = false
-
-if fs.exists(".kernel/bin/drive.lua") == true then
-    drive = true
-    require(".kernel/bin/drive")
-elseif fs.exists(".kernel/bin/drive.lua") == false then
-    drive = false
+if fs.exists("kernel/bin/opt/*") == true then
+    require("kernel/bin/opt/*")
 end
 
-if fs.exists(".kernel/bin/modem.lua") == true then
-    modem = true
-    require(".kernel/bin/modem")
-elseif fs.exists(".kernel/bin/modem.lua") == false then
-    modem = false
+-----
+
+--[[
+    Now these will be double checked.
+    These are required binaries.
+    These will be forcefully dl'd if unpresent.
+]]
+
+if fs.exists("kernel/bin/req/dir.lua") == true then
+    require("kernel/bin/req/dir")
+elseif fs.exists("kernel/bin/req/dir.lua") == false then
+    shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawnix/DEV/.kernel/bin/req/dir.lua .kernel/bin/req/dir.lua")
+    require("kernel/bin/req/dir")
 end
 
-if fs.exists(".kernel/bin/monitor.lua") == true then
-    monitor = true
-    require(".kernel/bin/monitor")
-elseif fs.exists(".kernel/bin/monitor.lua") == false then
-    monitor = false
-end
 --[[+=====================================================================================+]]--
 
 --MEMORY
