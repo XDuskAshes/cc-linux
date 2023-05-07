@@ -89,18 +89,95 @@ end
 
 --[[+=====================================================================================+]]--
 
-function kernelInfo() --Kernel info
+local function kernelInfo() --Kernel info
     print("Version: 1.0.0")
     print("Developed from: 4/18/2023 - [DATE]")
     print("Lead Developer: Dusk (Dusk#0834/XDuskAshesReal)")
     print("Codename: 'EUREKA'")
 end
 
-function logo()
+local function logo()
     print(" ____   _____  _ _ _  _____  _____  __ __ ")
     print("|    } |  _  || | | ||   | ||     ||  |  |")
     print("|  |  ||     || | | || | | ||-   -||-   -|")
     print("|____/ |__|__||_____||_|___||_____||__|__|")
+end
+
+--[[+=====================================================================================+]]--
+
+--Kernel Console
+
+local consoleTT = {} --console ttable, only for the console
+
+local cmds = {
+    "cmds",
+    "dnix",
+    "ver",
+    "ext"
+}
+
+local dnix = {
+    "update",
+    "ttflush",
+    "ttstore",
+    "ttread"
+}
+
+local function dnix(a)
+    if a == "update" then
+        printError("Not available yet")
+    end
+
+    if a == "ttstore" then
+        print("1 2 3")
+        write("*dnix/ttstore;")
+        local input = read()
+            if input == "1" then
+                print("Input:")
+                write("*dnix/ttstore/1;")
+                local input = read()
+                table.insert(tTable1, math.random(1,8), input)
+            end
+
+            if input == "2" then
+                print("Input:")
+                write("*dnix/ttstore/2;")
+                local input = read()
+                table.insert(tTable2, math.random(1,8), input)
+            end
+
+            if input == "3" then
+                print("Input:")
+                write("*dnix/ttstore/3;")
+                local input = read()
+                table.insert(tTable3, math.random(1,8), input)
+            end
+    end
+end
+
+local function CMD(a)
+    if a == cmds[1] then
+        print("Commands:", cmds[1], cmds[2], cmds[3], cmds[4])
+    end
+
+    if a == cmds[2] then
+        print("update ttflush ttstore ttread")
+        write("*dnix;")
+        local input = read()
+        dnix(input)
+    end
+end
+
+function kernelConsole()
+    term.clear()
+    term.setCursorPos(1,1)
+    print("DAWNIX Kernel Console - 'cmds' for command list")
+    write("*;")
+        while true do
+        local input = read()
+        CMD(input)
+        write("*;")
+        end
 end
 
 --[[+=====================================================================================+]]--
