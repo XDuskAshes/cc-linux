@@ -21,23 +21,13 @@ Total lines of code: (when it's done, goes here.)
 
 --[[+=====================================================================================+]]--
 
---BINARIES
+--PACKAGES
 
---OPTIONAL (in kernel/obin/)
+--OPTIONAL (in kernel/pkgs/)
 
-if fs.exists("kernel/bin/*") == true then
-    require("kernel/bin/*")
+if fs.exists("kernel/pkgs/*") == true then
+    require("kernel/pkgs/*")
 end
-
------
-
---REQUIRED (in kernel/rbin/)
-
---[[
-    Now these will be double checked.
-    These are required binaries.
-    These will be forcefully dl'd if unpresent.
-]]
 
 --[[+=====================================================================================+]]--
 
@@ -115,18 +105,26 @@ local function flushcTTable(t)
 end
 
 local cmds = {
+    "ext",
     "cmds",
     "dnix",
     "ver",
-    "ext",
-    "wdir"
+    "dira"
 }
 
 local dnixCMDS = {
-    "update",
-    "ttwrite",
-    "ttread",
-    "ttflush"
+    "ext",
+    "cmds",
+    "update"
+}
+
+local diraCMDS = {
+    "ext",
+    "cd",
+    "dir",
+    "tmpmk",
+    "tmpclr",
+    "tmpdel"
 }
 
 local consolever = "1.0.0"
@@ -136,69 +134,64 @@ local function consoleInfo()
     print("Version", consolever)
 end
 
-local function dnix(a)
-    if a == dnixCMDS[1] then --update
-        printError("Not available yet")
-    end
-
-    if a == dnixCMDS[2] then --ttwrite
-        print("Insert where?")
-        write("*dnix/ttwrite;")
+local function dnix()
+    term.clearLine(term.getCursorPos)
+    write("*dnix;")
+    while true do
         local input = read()
-        local slot = input
-        print("Content:")
-        write("*dnix/ttwrite;")
-        local input = read()
-        local cont = input
-        print("Performing table.insert to consoleTT")
-        table.insert(consoleTT, slot, cont)
-        print("Performed")
-    end
 
-    if a == dnixCMDS[3] then --ttread
-        for i, value in ipairs(consoleTT) do
-            if value ~= nil then
-              print(i, "|", value)
+            if input == dnixCMDS[1] then
+                print(" ")
+                break
             end
-          end
-    end
 
-    if a == dnixCMDS[4] then --ttflush
-        print("Perform flushcTTable")
-        flushcTTable()
-        print("Performed")
+            if input == dnixCMDS[2] then
+                for k,v in pairs(dnixCMDS) do
+                    print(k,"|",v)
+                end
+            end
+
+            if input == dnixCMDS[3] then
+                printError("Not yet implemented")
+            end
+
+        write("*dnix;")
     end
-    print(" ")
+end
+
+local function dira()
+    term.clearLine(term.getCursorPos)
+    write("*dira;")
+    while true do
+        local input = read()
+
+    write("*dira;")
+    end
 end
 
 local function CMD(a)
-    if a == cmds[1] then --cmds
-        for k,v in pairs(cmds) do
-            print(k,"|",v)
-        end
-    end
-
-    if a == cmds[2] then --dnix
-        for k,v in pairs(dnixCMDS) do
-            print(k,"|",v)
-        end
-        write("*dnix;")
-        local input = read()
-        dnix(input)
-    end
-
-    if a == cmds[3] then
-        consoleInfo()
-    end
-
-    if a == cmds[4] then --ext
+    if a == cmds[1] then --ext
         print("Rebooting...")
         sleep(0.5)
         os.reboot()
     end
 
+    if a == cmds[2] then --cmds
+        for k,v in pairs(cmds) do
+            print(k,"|",v)
+        end
+    end
+
+    if a == cmds[3] then --dnix
+        dnix()
+    end
+
+    if a == cmds[4] then
+        consoleInfo()
+    end
+
     if a == cmds[5] then --wdir
-        printError("Not yet implemented")
+        dira()
     end
 end
 
