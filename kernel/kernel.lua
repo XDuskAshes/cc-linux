@@ -1,7 +1,5 @@
 --1.0.0
 
-shell.run("kernel/ext/precheck.lua")
-
 --[[
 
 +============================================+
@@ -47,7 +45,7 @@ end
 
 --Temp folder and manipulation
 
-function tmp(a)
+local function tmp(a)
     if a == "make" then
         fs.makeDir("tmp/")
     end
@@ -109,66 +107,102 @@ end
 
 local consoleTT = {} --console ttable, only for the console
 
+local function flushcTTable(t)
+    t = consoleTT
+    for k,v in pairs(t) do
+        t[k] = nil
+      end
+end
+
 local cmds = {
     "cmds",
     "dnix",
     "ver",
-    "ext"
+    "ext",
+    "wdir"
 }
 
-local dnix = {
+local dnixCMDS = {
     "update",
-    "ttflush",
-    "ttstore",
-    "ttread"
+    "ttwrite",
+    "ttread",
+    "ttflush"
 }
+
+local consolever = "1.0.0"
+
+local function consoleInfo()
+    print("DAWNIX KernelConsole (DAWNIX-KC)")
+    print("Version", consolever)
+end
 
 local function dnix(a)
-    if a == "update" then
+    if a == dnixCMDS[1] then --update
         printError("Not available yet")
     end
 
-    if a == "ttstore" then
-        print("1 2 3")
-        write("*dnix/ttstore;")
+    if a == dnixCMDS[2] then --ttwrite
+        print("Insert where?")
+        write("*dnix/ttwrite;")
         local input = read()
-            if input == "1" then
-                print("Input:")
-                write("*dnix/ttstore/1;")
-                local input = read()
-                table.insert(tTable1, math.random(1,8), input)
-            end
-
-            if input == "2" then
-                print("Input:")
-                write("*dnix/ttstore/2;")
-                local input = read()
-                table.insert(tTable2, math.random(1,8), input)
-            end
-
-            if input == "3" then
-                print("Input:")
-                write("*dnix/ttstore/3;")
-                local input = read()
-                table.insert(tTable3, math.random(1,8), input)
-            end
+        local slot = input
+        print("Content:")
+        write("*dnix/ttwrite;")
+        local input = read()
+        local cont = input
+        print("Performing table.insert to consoleTT")
+        table.insert(consoleTT, slot, cont)
+        print("Performed")
     end
+
+    if a == dnixCMDS[3] then --ttread
+        for i, value in ipairs(consoleTT) do
+            if value ~= nil then
+              print(i, "|", value)
+            end
+          end
+    end
+
+    if a == dnixCMDS[4] then --ttflush
+        print("Perform flushcTTable")
+        flushcTTable()
+        print("Performed")
+    end
+    print(" ")
 end
 
 local function CMD(a)
-    if a == cmds[1] then
-        print("Commands:", cmds[1], cmds[2], cmds[3], cmds[4])
+    if a == cmds[1] then --cmds
+        for k,v in pairs(cmds) do
+            print(k,"|",v)
+        end
     end
 
-    if a == cmds[2] then
-        print("update ttflush ttstore ttread")
+    if a == cmds[2] then --dnix
+        for k,v in pairs(dnixCMDS) do
+            print(k,"|",v)
+        end
         write("*dnix;")
         local input = read()
         dnix(input)
     end
+
+    if a == cmds[3] then
+        consoleInfo()
+    end
+
+    if a == cmds[4] then --ext
+        print("Rebooting...")
+        sleep(0.5)
+        os.reboot()
+    end
+
+    if a == cmds[5] then --wdir
+        printError("Not yet implemented")
+    end
 end
 
-function kernelConsole()
+local function kernelConsole()
     term.clear()
     term.setCursorPos(1,1)
     print("DAWNIX Kernel Console - 'cmds' for command list")
@@ -178,6 +212,28 @@ function kernelConsole()
         CMD(input)
         write("*;")
         end
+end
+
+--[[+=====================================================================================+]]--
+
+--DAWNIX global function
+
+function dawnix(a)
+    if a == "info" then
+        kernelInfo()
+    end
+
+    if a == "logo" then
+        logo()
+    end
+
+    if a == "console" then
+        term.clear()
+        term.setCursorPos(1,1)
+        print("Opening console")
+        sleep(0.5)
+        kernelConsole()
+    end
 end
 
 --[[+=====================================================================================+]]--
