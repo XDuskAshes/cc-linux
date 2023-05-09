@@ -23,8 +23,6 @@ Total lines of code: (when it's done, goes here.)
 
 --PACKAGES
 
---OPTIONAL (in kernel/pkgs/)
-
 if fs.exists("kernel/pkgs/*") == true then
     require("kernel/pkgs/*")
 end
@@ -198,6 +196,7 @@ end
 local function kernelConsole()
     term.clear()
     term.setCursorPos(1,1)
+    logo()
     print("DAWNIX Kernel Console - 'cmds' for command list")
     write("*;")
         while true do
