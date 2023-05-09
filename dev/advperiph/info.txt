@@ -1,0 +1,4 @@
+All the stuff in here would be for https://www.curseforge.com/minecraft/mc-mods/advanced-peripherals
+I don't plan on actually coding this yet. I'm going to focus on just CC for now, with no extra.
+However I do invite contribution and pull requests for just updating this folder if one desires.
+-Dusk, 5/9/2023 (6:10 pm)
