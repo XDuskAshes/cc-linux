@@ -1,4 +1,4 @@
-# DAWNIX
+# CC-Linux
 
 A to-be Linux-esque kernel for OS basis.
 
@@ -17,7 +17,7 @@ I would like to establish a few rules for when you contribute to code.
 1. If it needs explaining, explain away and sign your name with a date (time optional)
 2. If you want you can sign your name where you coded stuff. Leave easter eggs!
 3. If you see something that can be improved, improve it! (at least I) want this to be a functional thing, and functionality needs improvement. Just make sure to explain how it changes it, for the average joe who gets bored and looks at source code.
-4. Talk about stuff on either making discussions in github or talk elsewhere, discords etc. If for some farfetched reason a discord is made for DAWNIX development and is active, I'll be damn impressed. (I don't think it'll ever happen)
+4. Talk about stuff on either making discussions in github or talk elsewhere, discords etc. If for some farfetched reason a discord is made for CC-Linux development and is active, I'll be damn impressed. (I don't think it'll ever happen)
 5. Have fun with it, just help coagulate it and make it work.
 
 ---
