@@ -3,22 +3,21 @@
 --CC-Linux dirchecker
 --On boot, check if directories exist, and throw errors for nonexistent.
 
-local root = {
+require("/kernel")
+
+local root = { --root
     "boot",
     "conf",
     "dev",
     "exec",
     "home",
     "lib",
-    "root",
     "sys",
     "temp",
     "usr"
 }
 
-local sub_root = {
-    "dev/advperiph",
-    "dev/ccperiph",
+local sub_root = { --sub-root
     "sys/boot",
     "usr/bin",
     "usr/exec",
@@ -26,28 +25,34 @@ local sub_root = {
     "usr/sysbin"
 }
 
+local sub_root_opt = { --optional sub-root dirs
+    "dev/advperiph"
+}
+
 for k,v in pairs(root) do
     if fs.exists(v) then
-        term.setTextColor(colors.green)
-        print("[ EXISTS ]",v)
-    else
-        printError("[ ERROR ] dir does not exist:",v)
+        scrMSG("rootcheck",1,"Checked dir exists")
+    elseif fs.exists(v) ~= true then
+        scrMSG("rootcheck",3,"Checked dir doesn't exist")
     end
-    term.setTextColor(colors.white)
-    sleep(0.1)
+    sleep(0.001)
 end
 
 for k,v in pairs(sub_root) do
     if fs.exists(v) then
-        term.setTextColor(colors.green)
-        print("[ EXISTS ]",v)
-    else
-        printError("[ ERROR ] dir does not exist:",v)
+        scrMSG("subrootcheck",1,"Checked dir exists")
+    elseif fs.exists(v) ~= true then
+        scrMSG("subrootcheck",3,"Checked dir doesn't exist")
     end
-    term.setTextColor(colors.white)
-    sleep(0.1)
+    sleep(0.001)
 end
 
-if fs.exists("boot/pgmcheck.lua") then
-    shell.run("boot/pgmcheck.lua")
+for k,v in pairs(sub_root_opt) do
+    if fs.exists(v) then
+        scrMSG("subrootoptcheck",1,"Checked dir exists")
+    elseif fs.exists(v) ~= true then
+        scrMSG("subrootoptcheck",2,"optional dir doesnt exist")
+    end
 end
+
+shell.run("/boot/pgmcheck.lua")
