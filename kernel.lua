@@ -20,6 +20,27 @@ Total lines of code: (when it's done, goes here.)
     -Dusk, 5/9/2023 (6:20 pm)
 ]]
 
+--Memory storage in the kernel
+--Processes can place things in here temporarily to index, then clear when needed
+
+local ttable = {}
+
+local function ttinput(input) --Input something into the ttable
+    table.insert(ttable,input)
+end
+
+local function ttread() --write contents of the ttable
+    for k,v in pairs(ttable) do
+        print("Content of ttable:", "(@",k,")","|",v," ")
+    end    
+end
+
+local function ttclear() --clear ttable
+    for k in pairs(ttable) do
+        ttable[k] = nil
+    end
+end
+
 local expect = require "cc.expect"
 
 function scrMSG(process,type,msg) --Screen message handler/displayer.

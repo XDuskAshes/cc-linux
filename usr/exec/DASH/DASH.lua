@@ -27,13 +27,18 @@ local m = { --Main terminal commands.
 }
 
 local function fetch()
-    
+    print("Runtime:",_HOST)
+    print("Lua:",_VERSION)
 end
 
 local function cd(a)
-    local owd = wd
-    wd = a
-    print("[cd] Working dir changed from",owd,"to",wd)
+    if fs.isDir(a) then
+        local owd = wd
+        wd = a
+        print("[cd] Working dir changed from",owd,"to",wd)
+    else
+        scrMSG("DASH:cd",2,"Not a directory")
+    end
 end
 
 local function ls()
@@ -54,3 +59,5 @@ local function PASS(a)
         fetch()
     end
 end
+
+fetch()
