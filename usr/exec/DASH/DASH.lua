@@ -2,62 +2,37 @@
 
 --DASH - Dusk's Absolute Shell Hell
 
-require("/kernel")
-
 local mode = 0 --Modes
-local wd = "/"
 --[[
     0 = main
     1 = su/su! (superuser/sudo)
 ]]
-
-local g = { --global terminal commands
-    "ext",
-    "fetch"
-}
-
-local m = { --Main terminal commands.
-    "cd",
-    "ls",
-    "rm",
-    "su!",
-    "wd",
-    "help",
-    "mode-sw"
-}
+local wd = "/"
 
 local function fetch()
-    print("Runtime:",_HOST)
-    print("Lua:",_VERSION)
+    print("HOST:",_HOST)
+    print("LUA",_VERSION)
 end
 
-local function cd(a)
-    if fs.isDir(a) then
-        local owd = wd
-        wd = a
-        print("[cd] Working dir changed from",owd,"to",wd)
-    else
-        scrMSG("DASH:cd",2,"Not a directory")
-    end
+local cmds = {
+    [ "EXT" ] = error(),
+    [ "FETCH" ] = fetch,
+
+}
+
+local function cursor()
+    local id = os.getComputerID()
+    write("[",id,"]@",wd,"$")
 end
 
-local function ls()
-    shell.run("ls", wd)
-end
+print("DASH SHELL - Read the manual on github.")
 
-local function PASS(a)
-    if a == g[1] then
-        if mode == 0 then
-            os.reboot()
-        elseif mode == 1 then
-            mode = 0
-            print(" ")
+while true do
+cursor()
+local input = read():upper()
+    for k,v in pairs(cmds) do
+        if input == k then
+            v()
         end
     end
-
-    if a == g[2] then
-        fetch()
-    end
 end
-
-fetch()

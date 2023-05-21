@@ -20,28 +20,37 @@ Total lines of code: (when it's done, goes here.)
     -Dusk, 5/9/2023 (6:20 pm)
 ]]
 
+local expect = require "cc.expect"
+
 --Memory storage in the kernel
 --Processes can place things in here temporarily to index, then clear when needed
 
-local ttable = {}
+    local ttable = {}
 
-local function ttinput(input) --Input something into the ttable
-    table.insert(ttable,input)
-end
-
-local function ttread() --write contents of the ttable
-    for k,v in pairs(ttable) do
-        print("Content of ttable:", "(@",k,")","|",v," ")
-    end    
-end
-
-local function ttclear() --clear ttable
-    for k in pairs(ttable) do
-        ttable[k] = nil
+    local function ttinput(input) --Input something into the ttable
+        table.insert(ttable,input)
+        if error then
+            scrMSG("kernel:ttinput",3,"Failed to input to ttable or other error.")
+        end
     end
-end
-
-local expect = require "cc.expect"
+    
+    local function ttread() --write contents of the ttable
+        for k,v in pairs(ttable) do
+            print("Content of ttable:", "(@",k,")","|",v," ")
+        if error then
+            scrMSG("kernel:ttread",3,"Failed to read ttable content or other error.")
+        end
+    end    
+    end
+    
+    local function ttclear() --clear ttable
+        for k in pairs(ttable) do
+            ttable[k] = nil
+        if error then
+            scrMSG("kernel:ttclear",3,"Failed to clear ttable or other error.")
+        end
+        end
+    end
 
 function scrMSG(process,type,msg) --Screen message handler/displayer.
     expect(1, process, "string")
