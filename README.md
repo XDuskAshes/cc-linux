@@ -4,6 +4,12 @@ A to-be Linux-esque kernel for OS basis.
 
 ---
 
+# **THIS PROJECT IS ON HOLD!**
+
+At least in my CC Instance, I ran out of space.
+
+---
+
 ### THIS IS A HEAVY WIP!
 
 This is a WIP and I welcome forks and pull requests to change and improve the code.
