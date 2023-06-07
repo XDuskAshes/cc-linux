@@ -4,9 +4,7 @@ A to-be Linux-esque kernel for OS basis.
 
 ---
 
-# **THIS PROJECT IS ON HOLD!**
-
-At least in my CC Instance, I ran out of space.
+# **This project is discontinued for now.**
 
 ---
 
